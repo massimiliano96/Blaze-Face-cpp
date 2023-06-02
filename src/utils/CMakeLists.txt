@@ -1,0 +1,2 @@
+add_subdirectory(anchors)
+add_subdirectory(anchors_generator)
