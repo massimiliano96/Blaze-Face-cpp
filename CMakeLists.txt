@@ -6,7 +6,20 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(${CMAKE_BINARY_DIR}/generators/conan_toolchain.cmake)
 
-add_compile_options("-g")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_options("-g")
+else()
+    add_compile_options("-O3")
+endif()
+
+option(ENABLE_SANITIZE_ADDR "Enable address sanitize." ON)
+option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." ON)
+option(ENABLE_SANITIZE_LEAK "Enable leak sanitize (Gcc/Clang only)." ON)
+
+if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
+    include(Sanitizer)
+    add_sanitizer_flags()
+endif()
 
 find_package(OpenCV)
 find_package(tensorflowlite)
