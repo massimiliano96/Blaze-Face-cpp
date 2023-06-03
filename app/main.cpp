@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -15,7 +16,13 @@ int main()
 
     detector.initializeModel();
 
+    auto start = std::chrono::high_resolution_clock::now();
+
     DetectionResults output = detector.detectFaces(image);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "Execution time: " << duration << " milliseconds." << std::endl;
 
     for (size_t i = 0; i < output.boxes.size(); i++)
     {
@@ -25,6 +32,7 @@ int main()
     for (size_t i = 0; i < output.keypoints.size(); i++)
     {
         cv::circle(image, output.keypoints[i], 3, cv::Scalar(255, 0, 0));
+        cv::imwrite("./data/detection.jpg", image);
     }
 
     cv::imwrite("./data/detection.jpg", image);
