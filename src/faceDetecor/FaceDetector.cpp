@@ -235,7 +235,7 @@ DetectionResults BlazeFaceDetector::filterWithNonMaxSupression(std::vector<cv::R
         output.boxes.push_back(boxes[index]);
         output.scores.push_back(scores[index]);
         for (int i = 0; i < KEY_POINT_SIZE; i++)
-            output.keypoints.push_back(keypoints[index + i]);
+            output.keypoints.push_back(keypoints[index * KEY_POINT_SIZE + i]);
     }
 
     return output;
