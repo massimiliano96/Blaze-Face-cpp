@@ -94,13 +94,6 @@ void BlazeFaceDetector::getModelInputDetails()
     channels = inputDims->data[3];
 }
 
-// void BlazeFaceDetector::getModelOutputDetails()
-// {
-//     const auto& output_details = interpreter->get_input_details();
-//     output0_index = output_details[0].index;
-//     output1_index = output_details[1].index;
-// }
-
 cv::Mat BlazeFaceDetector::prepareInputForInference(const cv::Mat& image)
 {
     cv::Mat img;
