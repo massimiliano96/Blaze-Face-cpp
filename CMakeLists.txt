@@ -17,7 +17,7 @@ option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." ON)
 option(ENABLE_SANITIZE_LEAK "Enable leak sanitize (Gcc/Clang only)." ON)
 
 if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
-    include(Sanitizer)
+    include(Sanitizers)
     add_sanitizer_flags()
 endif()
 
