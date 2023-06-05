@@ -20,18 +20,23 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Install Requirements
-      run: sudo apt-get install -y python3-pip && pip3 install conan==1.60.0
-    
-    - name: Install Dependencies
-      run: conan install . --build=missing -s build_type=Release
+    - name: Get Conan
+      uses: turtlebrowser/get-conan@v1.0
+      
+    - name: Create default profile
+      run: conan profile new default --detect
+      
+    - name: Update profile
+      run: conan profile update settings.compiler.libcxx=libstdc++11 default
+      
+    - name: Install dependencies
+      run: conan install . -s build_type=${{env.BUILD_TYPE}} --install-folder=${{github.workspace}}/build
 
     - name: Configure CMake
-      run: cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/build/Debug/generators/conan_toolchain.cmake -B ${{github.workspace}}/build/Debug -G "Unix Makefiles"
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build/Release 
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     # - name: Test
     #   working-directory: ${{github.workspace}}/build
