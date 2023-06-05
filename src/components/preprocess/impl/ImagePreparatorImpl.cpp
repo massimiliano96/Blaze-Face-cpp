@@ -1,25 +1,28 @@
 #include "ImagePreparatorImpl.hpp"
+#include <iostream>
+#include <opencv2/imgproc.hpp>
 
-ImagePreparatorImpl::ImagePreparatorImpl(int width, int height) : ImagePreparator(), inputWidth(width), inputHeight(height) {};
+ImagePreparatorImpl::ImagePreparatorImpl(int width, int height, int channels)
+    : ImagePreparator(), inputWidth(width), inputHeight(height), inputChannels(channels) {};
 
-cv::Mat ImagePreparatorImpl::prepare(const cv::Mat image) const
+cv::Mat ImagePreparatorImpl::prepare(const cv::Mat& image) const
 {
     cv::Mat img;
     // OpenCV images are in BGR, model expects RGB channel format.
     int cnls = image.type();
     if (cnls == CV_8UC4)
     {
-        cvtColor(image, img, cv::COLOR_BGRA2RGB);
+        cv::cvtColor(image, img, cv::COLOR_BGRA2RGB);
         std::cout << "This is CV_8UC4 image format" << std::endl;
     }
     else if (cnls == CV_8UC3)
     {
-        cvtColor(image, img, cv::COLOR_BGR2RGB);
+        cv::cvtColor(image, img, cv::COLOR_BGR2RGB);
         std::cout << "This is CV_8UC3 image format" << std::endl;
     }
     else
     {
-        std::cout << "Image format is not supported" << std::endl;
+        std::cout << "Image format is not supported!" << std::endl;
         throw std::runtime_error("Image format is not supported");
     }
 
@@ -32,6 +35,6 @@ cv::Mat ImagePreparatorImpl::prepare(const cv::Mat image) const
     cv::Mat preparedImage;
     img.convertTo(preparedImage, CV_32F);
     preparedImage = preparedImage.reshape(1, inputHeight);
-    preparedImage = preparedImage.reshape(1, inputWidth * inputHeight * channels);
+    preparedImage = preparedImage.reshape(1, inputWidth * inputHeight * inputChannels);
     return preparedImage;
 }
