@@ -36,8 +36,6 @@ public:
 private:
     void getModelInputDetails();
 
-    // void getModelOutputDetails();
-
     void generateAnchors();
 
     cv::Mat prepareInputForInference(const cv::Mat& image);

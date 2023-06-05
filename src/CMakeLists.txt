@@ -7,6 +7,7 @@ add_library(${LIBRARY_NAME} STATIC
     ${ANCHORS_GENERATOR_SOURCES}
     ${FACE_DETECTOR_SOURCES}
     ${PREPROCESS_SOURCES}
+    ${FRONT_FACE_SOURCES}
 )
 
 target_sources(${LIBRARY_NAME}
@@ -17,6 +18,7 @@ target_sources(${LIBRARY_NAME}
     ${ANCHORS_GENERATOR_HEADERS}
     ${FACE_DETECTOR_HEADERS}
     ${PREPROCESS_HEADERS}
+    ${FRONT_FACE_HEADERS}
 )
 target_link_libraries(${LIBRARY_NAME}
     tensorflow::tensorflowlite

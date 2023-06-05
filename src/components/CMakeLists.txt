@@ -1,1 +1,2 @@
 add_subdirectory(preprocess)
+add_subdirectory(detection)
