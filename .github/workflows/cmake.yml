@@ -39,7 +39,7 @@ jobs:
       run: conan install . --build=missing -s build_type=${{env.BUILD_TYPE}} --install-folder=${{github.workspace}}/build
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/build/Release/generators/conan_toolchain.cmake -B ${{github.workspace}}/build -G "Unix Makefiles"
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
