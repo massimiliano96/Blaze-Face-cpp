@@ -1,0 +1,3 @@
+set(BLAZE_FACE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/impl/BlazeFaceImpl.cpp" CACHE INTERNAL "")
+set(BLAZE_FACE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/BlazeFace.hpp"
+                       "${CMAKE_CURRENT_SOURCE_DIR}/impl/BlazeFaceImpl.hpp" CACHE INTERNAL "")

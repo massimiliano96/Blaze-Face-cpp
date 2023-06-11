@@ -1,0 +1,2 @@
+set(PREPROCESS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/ImagePreparator.hpp" "${CMAKE_CURRENT_SOURCE_DIR}/impl/ImagePreparatorImpl.hpp" CACHE INTERNAL "")
+set(PREPROCESS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/impl/ImagePreparatorImpl.cpp" CACHE INTERNAL "")
