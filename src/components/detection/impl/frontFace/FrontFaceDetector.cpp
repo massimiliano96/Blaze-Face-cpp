@@ -1,11 +1,13 @@
 #include "FrontFaceDetector.hpp"
 
-FrontFaceDetector::FrontFaceDetector(std::string& modelFile, float scoreThreshold, float iouThreshold)
-    : FaceDetector(), scoreThreshold(scoreThreshold), iouThreshold(iouThreshold)
-{
-    sigmoidScoreThreshold = std::log(scoreThreshold / (1 - scoreThreshold));
+#include "tensorflow/lite/kernels/register.h"
+#include "tensorflow/lite/model.h"
+#include "tensorflow/lite/optional_debug_tools.h"
 
-    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(modelFile);
+FrontFaceDetector::FrontFaceDetector(std::string& modelFile) : FaceDetector()
+{
+
+    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(modelFile.c_str());
     // Initiate Interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
     tflite::InterpreterBuilder(*model.get(), resolver)(&interpreter);
@@ -47,6 +49,8 @@ RawData FrontFaceDetector::inference(const cv::Mat& inputTensor)
 
     memcpy(rawOutput.faces.data, facesData, sizeof(float) * facesRows * facesCols);
     memcpy(rawOutput.scores.data, scoresData, sizeof(float) * scoresRows * scoresCols);
+
+    return rawOutput;
 }
 
 ModelInputDetails FrontFaceDetector::getModelInputDetails() const

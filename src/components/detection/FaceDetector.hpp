@@ -13,13 +13,13 @@ struct ModelInputDetails
     int inputHeight;
     int inputWidth;
     int inputChannels;
-}
+};
 
 class FaceDetector
 {
 public:
-    FaceDetector();
-    virtual ~FaceDetector();
+    FaceDetector() = default;
+    virtual ~FaceDetector() = default;
     virtual RawData inference(const cv::Mat& inputTensor) = 0;
     virtual ModelInputDetails getModelInputDetails() const = 0;
 };
