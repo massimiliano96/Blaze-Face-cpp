@@ -17,15 +17,21 @@ target_sources(${LIBRARY_NAME}
     PUBLIC FILE_SET headers
     TYPE HEADERS
     BASE_DIRS "" FILES
-    ${ANCHORS_HEADERS}
-    ${ANCHORS_GENERATOR_HEADERS}
-    ${PREPROCESS_HEADERS}
-    ${FRONT_FACE_HEADERS}
-    ${POSTPROCESS_HEADERS}
-    ${BLAZE_FACE_HEADERS}
     ${FACTORY_HEADERS}
+    ${BLAZE_FACE_HEADERS}
 )
+
 target_link_libraries(${LIBRARY_NAME}
     tensorflow::tensorflowlite
     opencv::opencv
 )
+
+include(Version)
+
+
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_NAME "blaze-face-cpp")
+set(CPACK_PACKAGE_CONTACT "massimilianoriva96@gmail.com")
+set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Blaze Face inference C++ library")
+
+include(CPack)
