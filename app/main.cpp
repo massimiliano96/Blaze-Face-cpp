@@ -32,7 +32,7 @@ int main()
 
     for (size_t i = 0; i < output.keypoints.size(); i++)
     {
-        cv::circle(image, output.keypoints[i], 3, cv::Scalar(255, 0, 0));
+        cv::circle(image, output.keypoints[i], 10, cv::Scalar(255, 0, 0), -1);
         cv::imwrite("./data/detection.jpg", image);
     }
 
